@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabores del Sur — Menú | Valdivia</title>
+    <meta name="description" content="Sabores del Sur: wafles, empanadas, handrolls, jugos, milkshakes, cafés y pizzas en Ricardo Rodas #150, Las Ánimas, Valdivia. Delivery desde las 19:00 hrs.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka:wght@500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --chocolate: #4a2c1a;
+            --chocolate-claro: #6b3e26;
+            --ambar: #e8963a;
+            --ambar-claro: #f0a94e;
+            --crema: #fdf8f2;
+            --verde-wsp: #25d366;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--crema);
+            color: #2b1a10;
+            padding-bottom: 100px;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--chocolate) 0%, var(--chocolate-claro) 100%);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(232,150,58,0.18) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .hero-content { position: relative; z-index: 2; }
+
+        /* Logo original (archivo img/logo.png, fondo transparente) */
+        .logo {
+            display: block;
+            position: relative;
+            margin: 0 auto 14px;
+        }
+        .logo img {
+            width: 230px;
+            max-width: 68vw;
+            display: block;
+            margin: 0 auto;
+            filter: drop-shadow(0 10px 24px rgba(0,0,0,0.45));
+        }
+
+        .hero .badge-horario {
+            display: inline-block;
+            background: var(--ambar);
+            color: var(--chocolate);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .hero h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        .hero .tagline { font-size: 1.05rem; opacity: 0.92; margin-bottom: 8px; }
+        .hero .ubicacion { font-size: 0.95rem; opacity: 0.85; }
+        .hero .delivery {
+            display: inline-block;
+            margin-top: 12px;
+            background: rgba(255,255,255,0.12);
+            border: 1px dashed var(--ambar);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* ===== NAV CATEGORÍAS ===== */
+        .nav-wrap {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: white;
+            box-shadow: 0 2px 10px rgba(74,44,26,0.12);
+        }
+        .nav-categorias {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px 46px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+        }
+        .nav-categorias::-webkit-scrollbar { display: none; }
+        .nav-categorias a {
+            display: inline-block;
+            padding: 7px 13px;
+            margin-right: 6px;
+            background: var(--crema);
+            color: var(--chocolate);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.82rem;
+            transition: all 0.2s;
+        }
+        .nav-categorias a:hover, .nav-categorias a:focus {
+            background: var(--ambar);
+            color: var(--chocolate);
+        }
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: var(--chocolate);
+            color: var(--ambar-claro);
+            font-size: 1.2rem;
+            line-height: 1;
+            cursor: pointer;
+            z-index: 5;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+            transition: background 0.2s;
+            font-family: 'Poppins', sans-serif;
+        }
+        .nav-arrow:hover { background: var(--ambar); color: var(--chocolate); }
+        .nav-arrow.izq { left: 6px; }
+        .nav-arrow.der { right: 6px; }
+        .nav-arrow.visible { display: flex; }
+        .nav-fade {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 30px;
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .nav-fade.izq { left: 0; background: linear-gradient(90deg, #fff 35%, transparent); }
+        .nav-fade.der { right: 0; background: linear-gradient(270deg, #fff 35%, transparent); }
+        .nav-fade.visible { opacity: 1; }
+
+        /* ===== CONTENIDO ===== */
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+
+        .seccion-titulo {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.6rem;
+            color: var(--chocolate);
+            margin: 35px 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            scroll-margin-top: 70px;
+        }
+        .seccion-titulo::after {
+            content: "";
+            flex: 1;
+            height: 3px;
+            background: linear-gradient(90deg, var(--ambar), transparent);
+            border-radius: 3px;
+        }
+
+        /* ===== MÁS PEDIDOS ===== */
+        .mas-pedidos {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        @media (min-width: 550px) {
+            .mas-pedidos { grid-template-columns: 1fr 1fr; }
+        }
+        .destacado {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(74,44,26,0.1);
+            border: 2px solid var(--ambar);
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .destacado:hover { transform: translateY(-3px); }
+        .destacado .img-wrap { position: relative; height: 150px; overflow: hidden; }
+        .destacado img { width: 100%; height: 100%; object-fit: cover; }
+        .badge-popular {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #d9480f;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .destacado .info { padding: 14px; }
+        .destacado h3 { font-size: 1.05rem; margin-bottom: 4px; color: var(--chocolate); }
+        .destacado p { font-size: 0.85rem; color: #6b5445; margin-bottom: 8px; }
+        .precio { font-weight: 700; color: var(--ambar); font-size: 1.1rem; }
+
+        /* ===== PRODUCTOS ===== */
+        .productos { display: flex; flex-direction: column; gap: 16px; }
+        .producto {
+            display: flex;
+            gap: 15px;
+            background: white;
+            padding: 14px;
+            border-radius: 16px;
+            box-shadow: 0 3px 12px rgba(74,44,26,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+            align-items: center;
+            cursor: pointer;
+        }
+        .producto:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74,44,26,0.14);
+        }
+        .producto img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 12px;
+            background: #f0e8df;
+            flex-shrink: 0;
+        }
+        .producto .info { flex: 1; min-width: 0; }
+        .producto h3 { font-size: 1.05rem; margin-bottom: 4px; color: var(--chocolate); }
+        .producto p { font-size: 0.85rem; color: #6b5445; margin-bottom: 8px; line-height: 1.4; }
+        .tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 50px;
+            margin-right: 5px;
+            margin-bottom: 6px;
+        }
+        .tag-new { background: #dcfce7; color: #16a34a; }
+        .tag-chef { background: #fef3c7; color: #d97706; }
+        .ver-mas-hint {
+            font-size: 0.7rem;
+            color: var(--ambar);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* ===== BOTÓN WHATSAPP FIJO ===== */
+        .whatsapp-fijo {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--verde-wsp);
+            color: white;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            box-shadow: 0 6px 25px rgba(37,211,102,0.4);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s;
+            white-space: nowrap;
+        }
+        .whatsapp-fijo:hover { transform: translateX(-50%) scale(1.05); }
+
+        /* ===== MODAL / LIGHTBOX ===== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(43,26,16,0.88);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .modal-overlay.abierto { opacity: 1; visibility: visible; }
+        .modal {
+            background: white;
+            border-radius: 24px;
+            max-width: 520px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s;
+        }
+        .modal-overlay.abierto .modal { transform: scale(1) translateY(0); }
+        .modal-img-wrap {
+            width: 100%;
+            height: 320px;
+            overflow: hidden;
+            position: relative;
+            background: #241309;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-img-wrap img { width: 100%; height: 100%; object-fit: contain; transition: opacity 0.22s; }
+        .modal-img-wrap img.cambiando { opacity: 0; }
+        .gnav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(74, 44, 26, 0.85);
+            color: var(--crema);
+            font-size: 1.6rem;
+            line-height: 1;
+            cursor: pointer;
+            z-index: 4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+            transition: background 0.2s, transform 0.2s;
+            padding: 0 0 3px;
+        }
+        .gnav:hover, .gnav:focus-visible { background: var(--ambar); color: var(--chocolate); transform: translateY(-50%) scale(1.08); }
+        .gnav.izq { left: 10px; }
+        .gnav.der { right: 10px; }
+        .gnav[hidden] { display: none; }
+        .gdots {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 7px;
+            z-index: 4;
+        }
+        .gdots:empty { display: none; }
+        .gdot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            border: none;
+            padding: 0;
+            background: rgba(253, 248, 242, 0.5);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .gdot.on { background: var(--ambar); transform: scale(1.3); }
+        .modal-cerrar {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(74,44,26,0.75);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            z-index: 5;
+        }
+        .modal-cerrar:hover { background: #d9480f; }
+        .modal-cuerpo { padding: 24px; }
+        .modal-cuerpo .tag { font-size: 0.75rem; }
+        .modal-cuerpo h2 { font-family: 'Fredoka', sans-serif; font-size: 1.7rem; margin: 8px 0 10px; color: var(--chocolate); }
+        .modal-precio {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--ambar);
+            margin-bottom: 15px;
+            display: block;
+        }
+        .modal-desc {
+            font-size: 0.95rem;
+            color: #4a382c;
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
+        .modal-extra {
+            background: var(--crema);
+            border-left: 4px solid var(--ambar);
+            padding: 12px 14px;
+            border-radius: 0 10px 10px 0;
+            font-size: 0.85rem;
+            color: #6b5445;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        .modal-extra strong { color: var(--chocolate); }
+        .modal-pedir {
+            display: block;
+            width: 100%;
+            background: var(--verde-wsp);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+        .modal-pedir:hover { background: #1ebe57; }
+
+        /* ===== PROMOS DE LA SEMANA ===== */
+        .semana-tabs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 2px 2px 14px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .semana-tabs::-webkit-scrollbar { display: none; }
+        .dia-tab {
+            flex: 0 0 auto;
+            width: 66px;
+            background: white;
+            border: 2px solid #f3e3d3;
+            border-radius: 16px;
+            padding: 10px 6px 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Poppins', sans-serif;
+        }
+        .dia-tab:hover { border-color: var(--ambar-claro); transform: translateY(-2px); }
+        .dia-tab .dia-abrev {
+            display: block;
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: #a5866f;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .dia-tab .dia-num {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--chocolate);
+            line-height: 1.25;
+        }
+        .dia-tab .dia-hoy-chip {
+            display: none;
+            margin-top: 4px;
+            background: var(--ambar);
+            color: var(--chocolate);
+            font-size: 0.58rem;
+            font-weight: 800;
+            padding: 2px 7px;
+            border-radius: 50px;
+            letter-spacing: 0.5px;
+        }
+        .dia-tab.es-hoy { border-color: var(--ambar); background: #fff6ea; }
+        .dia-tab.es-hoy .dia-hoy-chip { display: inline-block; }
+        .dia-tab.activo { border-color: var(--chocolate); background: var(--chocolate); }
+        .dia-tab.activo .dia-abrev { color: var(--ambar-claro); }
+        .dia-tab.activo .dia-num { color: white; }
+        .dia-tab.activo .dia-hoy-chip { background: var(--ambar); color: var(--chocolate); }
+
+        .promo-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 6px 22px rgba(74,44,26,0.12);
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+        .promo-card.es-hoy { border-color: var(--ambar); }
+        .promo-card-media {
+            height: 150px;
+            background: linear-gradient(135deg, var(--chocolate) 0%, var(--chocolate-claro) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .promo-card-media::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 180%;
+            background: radial-gradient(circle, rgba(232,150,58,0.3), transparent 70%);
+        }
+        .promo-card-media .promo-emoji {
+            font-size: 4.2rem;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.35));
+        }
+        .promo-badge-hoy {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #d9480f;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            z-index: 3;
+            animation: parpadeo 1.5s ease-in-out infinite;
+        }
+        .promo-badge-vigencia {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255,255,255,0.94);
+            color: var(--chocolate);
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            z-index: 3;
+        }
+        .promo-card-body { padding: 20px; }
+        .promo-card-body .promo-titulo {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.5rem;
+            color: var(--chocolate);
+            margin-bottom: 6px;
+        }
+        .promo-card-body .promo-desc {
+            font-size: 0.92rem;
+            color: #6b5445;
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+        .promo-precios {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .promo-precios:empty { display: none; }
+        .precio-tachado-promo { text-decoration: line-through; color: #b09a89; font-size: 1rem; }
+        .precio-promo { font-size: 1.5rem; font-weight: 800; color: #d9480f; }
+        .badge-ahorro { background: #dcfce7; color: #16a34a; font-size: 0.72rem; font-weight: 800; padding: 4px 10px; border-radius: 50px; }
+        .promo-nota { text-align: center; font-size: 0.8rem; color: #a5866f; margin-top: 14px; }
+        @keyframes parpadeo {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.75; transform: scale(1.05); }
+        }
+        .promo-hero {
+            display: none;
+            margin-top: 14px;
+            background: rgba(232,150,58,0.22);
+            border: 1px dashed var(--ambar);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+        }
+        .promo-hero strong { color: var(--ambar-claro); }
+
+        /* ===== LISTAS DE PRECIOS Y CHIPS DE SABORES ===== */
+        .lista-card {
+            background: white;
+            border-radius: 18px;
+            padding: 18px 20px;
+            box-shadow: 0 4px 16px rgba(74,44,26,0.08);
+            margin-top: 14px;
+        }
+        .lista-card h4 {
+            font-family: 'Fredoka', sans-serif;
+            color: var(--chocolate-claro);
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        .lista-card.doble {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+        }
+        @media (min-width: 700px) {
+            .lista-card.doble { grid-template-columns: 1fr 1fr; }
+        }
+        .lista-precios { list-style: none; }
+        .lista-precios li {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 10px;
+            padding: 7px 0;
+            border-bottom: 1px dashed #eee0d2;
+            font-size: 0.94rem;
+            color: #5a4436;
+        }
+        .lista-precios li:last-child { border-bottom: none; }
+        .lista-precios li b { color: var(--chocolate); font-weight: 700; white-space: nowrap; }
+        .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+        .chip {
+            background: var(--crema);
+            border: 1px solid #f0dfcc;
+            color: var(--chocolate-claro);
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+        .lista-nota { font-size: 0.84rem; color: #a5866f; margin-top: 10px; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--chocolate);
+            color: white;
+            padding: 35px 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        footer h4 { font-family: 'Pacifico', cursive; font-size: 1.6rem; margin-bottom: 15px; color: var(--ambar-claro); font-weight: 400; }
+        footer p { font-size: 0.9rem; opacity: 0.88; margin-bottom: 8px; line-height: 1.6; }
+        footer .redes { margin-top: 15px; }
+        footer .redes a {
+            display: inline-block;
+            margin: 0 8px;
+            color: white;
+            text-decoration: none;
+            background: rgba(255,255,255,0.12);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+        footer .redes a:hover { background: var(--ambar); color: var(--chocolate); }
+
+        /* ===== ANIMACIONES ===== */
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.5s, transform 0.5s; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="hero-content">
+            <div class="logo">
+                <img src="img/logo.png?v=2" alt="Sabores del Sur">
+            </div>
+            <span class="badge-horario">🛵 Abierto ahora en Valdivia</span>
+            <h1>Wafles, Empanadas & Sabores del Sur</h1>
+            <p class="tagline">Wafles • Empanadas • Handrolls • Jugos • Pizzas</p>
+            <p class="ubicacion">📍 Ricardo Rodas #150, Las Ánimas</p>
+            <span class="delivery">🛵 Delivery desde las 19:00 hrs</span>
+            <div class="promo-hero" id="promo-hero">🎉 Promo de hoy: <strong id="promo-hero-text"></strong> 👉</div>
+        </div>
+    </header>
+
+    <div class="nav-wrap">
+        <nav class="nav-categorias" id="nav-categorias">
+            <a href="#mas-pedidos">🔥 Lo más pedido</a>
+            <a href="#waffles">🧇 Wafles</a>
+            <a href="#empanadas">🥟 Empanadas</a>
+            <a href="#sopaipillas">🥞 Sopaipillas</a>
+            <a href="#handrolls">🍣 Handrolls</a>
+            <a href="#sushi-dulce">🍥 Sushi Dulce</a>
+            <a href="#milkshakes">🥤 Milkshakes</a>
+            <a href="#jugos">🧃 Jugos</a>
+            <a href="#limonadas">🍋 Limonadas</a>
+            <a href="#cafes">☕ Cafés</a>
+            <a href="#bebidas">🥫 Bebidas</a>
+            <a href="#pizzas">🍕 Pizzas</a>
+        </nav>
+        <span class="nav-fade izq" id="nav-fade-izq"></span>
+        <span class="nav-fade der" id="nav-fade-der"></span>
+        <button class="nav-arrow izq" id="nav-arrow-izq" type="button" aria-label="Ver categorías anteriores">‹</button>
+        <button class="nav-arrow der" id="nav-arrow-der" type="button" aria-label="Ver más categorías">›</button>
+    </div>
+
+    <main class="container">
+
+        <h2 class="seccion-titulo fade-in" id="mas-pedidos">🔥 Lo más pedido</h2>
+        <div class="mas-pedidos">
+            <article class="destacado fade-in" data-id="waffle-clasico">
+                <div class="img-wrap">
+                    <img src="img/waffle.jpg?v=3" alt="Waffle" loading="lazy">
+                    <span class="badge-popular">🔥 #1 en ventas</span>
+                </div>
+                <div class="info">
+                    <h3>Waffle a elección</h3>
+                    <p>Base Nutella, manjar o miel — con crema y salsa a elección</p>
+                    <span class="precio">$5.500 CLP</span>
+                </div>
+            </article>
+
+            <article class="destacado fade-in" data-id="handroll-clasico">
+                <div class="img-wrap">
+                    <img src="img/handrolls.jpg?v=3" alt="Handroll" loading="lazy">
+                    <span class="badge-popular">⭐ Favorito</span>
+                </div>
+                <div class="info">
+                    <h3>Handroll Pollo &amp; Palta</h3>
+                    <p>Pollo, queso crema y palta en alga nori crujiente</p>
+                    <span class="precio">$3.500 CLP</span>
+                </div>
+            </article>
+        </div>
+
+        <h2 class="seccion-titulo fade-in" id="promos">🎉 Promos de la Semana</h2>
+        <div class="semana-tabs" id="semana-tabs"></div>
+        <div class="promo-card fade-in" id="promo-card">
+            <div class="promo-card-media">
+                <span class="promo-badge-hoy" id="promo-badge-hoy" style="display:none;">🔥 SOLO HOY</span>
+                <span class="promo-badge-vigencia" id="promo-vigencia">📅 VISTA PREVIA</span>
+                <span class="promo-emoji" id="promo-emoji">🎉</span>
+            </div>
+            <div class="promo-card-body">
+                <div class="promo-titulo" id="promo-titulo"></div>
+                <div class="promo-desc" id="promo-desc"></div>
+                <div class="promo-precios" id="promo-precios"></div>
+            </div>
+        </div>
+        <p class="promo-nota">🔄 Promos que cambian cada día — sigue el ritmo de la semana 📅</p>
+
+        <h2 class="seccion-titulo fade-in" id="waffles">🧇 Wafles</h2>
+        <div class="productos">
+            <article class="producto fade-in" data-id="waffle-clasico">
+                <img src="img/waffle.jpg?v=3" alt="Waffle" loading="lazy">
+                <div class="info">
+                    <span class="tag tag-chef">👨‍🍳 Recomendado</span>
+                    <h3>Waffle a elección</h3>
+                    <p>Elige tu base: Nutella, manjar o miel — con o sin crema y salsa a elección</p>
+                    <span class="precio">$5.500 CLP</span>
+                    <div class="ver-mas-hint">👆 Toca para ver más</div>
+                </div>
+            </article>
+        </div>
+        <div class="lista-card doble fade-in">
+            <div>
+                <h4>🍓 Agregados incluidos</h4>
+                <div class="chips">
+                    <span class="chip">Frutilla</span>
+                    <span class="chip">Plátano</span>
+                    <span class="chip">Brownie</span>
+                    <span class="chip">Oreo</span>
+                    <span class="chip">Durazno</span>
+                    <span class="chip">Mix Berries</span>
+                    <span class="chip">Kiwi</span>
+                    <span class="chip">Piña</span>
+                </div>
+            </div>
+            <div>
+                <h4>🍯 Incluye</h4>
+                <div class="chips">
+                    <span class="chip">Con o sin crema</span>
+                    <span class="chip">Salsa: Chocolate</span>
+                    <span class="chip">Manjar</span>
+                    <span class="chip">Frambuesa</span>
+                    <span class="chip">Caramelo</span>
+                </div>
+                <p class="lista-nota">✨ Todo incluido en el precio — arma el tuyo como quieras</p>
+            </div>
+        </div>
+
+        <h2 class="seccion-titulo fade-in" id="empanadas">🥟 Empanadas</h2>
+        <div class="productos">
+            <article class="producto fade-in" data-id="emp-mechada">
+                <img src="img/empanada-carne-queso.jpg?v=3" alt="Empanada de queso mechada" loading="lazy">
+                <div class="info">
+                    <span class="tag tag-chef">👨‍🍳 Recomendado</span>
+                    <h3>Empanada Queso Mechada</h3>
+                    <p>Queso fundido con carne mechada, dorada al horno</p>
+                    <span class="precio">$3.000 CLP</span>
+                    <div class="ver-mas-hint">👆 Toca para ver más</div>
+                </div>
+            </article>
+
+            <article class="producto fade-in" data-id="emp-camaron">
+                <img src="img/empanada-camaron.jpg?v=3" alt="Empanada de queso camarón" loading="lazy">
+                <div class="info">
+                    <span class="tag tag-new">✨ Premium</span>
+                    <h3>Empanada Queso Camarón</h3>
+                    <p>Queso fundido con camarón — sabor a la costa de Valdivia</p>
+                    <span class="precio">$3.000 CLP</span>
+                    <div class="ver-mas-hint">👆 Toca para ver más</div>
+                </div>
+            </article>
+
+            <article class="producto fade-in" data-id="emp-choclo">
+                <img src="img/empanada-choclo.jpg?v=3" alt="Empanada de queso choclo" loading="lazy">
+                <div class="info">
+                    <span class="tag tag-new">✨ De la huerta</span>
+                    <h3>Empanada Queso Choclo</h3>
+                    <p>Queso fundido con choclo dulce, clásica chilota</p>
+                    <span class="precio">$3.000 CLP</span>
+                    <div class="ver-mas-hint">👆 Toca para ver más</div>
+                </div>
+            </article>
+        </div>
+        <div class="lista-card fade-in">
+            <h4>📋 Todas las empanadas</h4>
+            <ul class="lista-precios">
+                <li><span>Queso</span><b>$2.500</b></li>
+                <li><span>Queso Camarón</span><b>$3.000</b></li>
+                <li><span>Queso Mechada</span><b>$3.000</b></li>
+                <li><span>Queso Pollo</span><b>$3.000</b></li>
+                <li><span>Queso Choclo</span><b>$3.000</b></li>
+                <li><span>Queso Champiñón</span><b>$3.000</b></li>
+                <li><span>Queso Jaiba</span><b>$3.500</b></li>
+            </ul>
+        </div>
+
+        <h2 class="seccion-titulo fade-in" id="sopaipillas">🥞 Sopaipillas</h2>
+        <div class="productos">
+            <article class="producto fade-in" data-id="sopaipilla">
+                <img src="img/sopaipillas.jpg?v=3" alt="Sopaipillas" loading="lazy">
+                <div class="info">
+                    <span class="tag tag-new">✨ Recién hechas</span>
+                    <h3>Sopaipillas</h3>
+                    <p>Sopaipillas recién hechas, crujientes por fuera y suaves por dentro</p>
+                    <span class="precio">💰 Precio por confirmar</span>
+                    <div class="ver-mas-hint">👆 Toca para ver más</div>
+                </div>
+            </article>
+        </div>
+
+        <h2 class="seccion-titulo fade-in" id="handrolls">🍣 Handrolls</h2>
+        <div class="productos">
+            <article class="producto fade-in" data-id="handroll-clasico">
+                <img src="img/handrolls.jpg?v=3" alt="Handroll de pollo y palta" loading="lazy">
+                <div class="info">
+                    <span class="tag tag-chef">👨‍🍳 Recomendado</span>
+                    <h3>Handroll Pollo &amp; Palta</h3>
+                    <p>Pollo, queso crema y palta envueltos en alga nori crujiente</p>
+                    <span class="precio">$3.500 CLP</span>
+                    <div class="ver-mas-hint">👆 Toca para ver más</div>
+                </div>
+            </article>
+        </div>
+
+        <h2 class="seccion-titulo fade-in" id="sushi-dulce">🍥 Sushi Dulce</h2>
+        <div class="productos">
+            <article class="producto fade-in" data-id="sushi-dulce">
+                <img src="img/sushi-dulce.jpg?v=3" alt="Sushi dulce" loading="lazy">
+                <div class="info">
+                    <span class="tag tag-new">✨ Postre creativo</span>
+                    <h3>Sushi Dulce</h3>
+                    <p>Rollo dulce con fruta y chocolate — postre para compartir</p>
+                    <span class="precio">💰 Precio por confirmar</span>
+                    <div class="ver-mas-hint">👆 Toca para ver más</div>
+                </div>
+            </article>
+        </div>
+
+        <h2 class="seccion-titulo fade-in" id="milkshakes">🥤 Milkshakes</h2>
+        <div class="productos">
+            <article class="producto fade-in" data-id="milkshake">
+                <img src="img/milkshake.jpg?v=3" alt="Milkshake" loading="lazy">
+                <div class="info">
+                    <span class="tag tag-new">✨ Nuevo en carta</span>
+                    <h3>Milkshake</h3>
+                    <p>Cremoso, helado y con topping — elige tu sabor</p>
+                    <span class="precio">$4.000 CLP</span>
+                    <div class="ver-mas-hint">👆 Toca para ver más</div>
+                </div>
+            </article>
+        </div>
+        <div class="lista-card fade-in">
+            <h4>🍓 Sabores</h4>
+            <div class="chips">
+                <span class="chip">Frutilla</span>
+                <span class="chip">Arándano</span>
+                <span class="chip">Mora</span>
+                <span class="chip">Piña</span>
+                <span class="chip">Melón</span>
+                <span class="chip">Frambuesa</span>
+                <span class="chip">Mango</span>
+                <span class="chip">Naranja</span>
+                <span class="chip">Naranja Plátano</span>
+                <span class="chip">Oreo</span>
+            </div>
+        </div>
+
+        <h2 class="seccion-titulo fade-in" id="jugos">🧃 Jugos</h2>
+        <div class="productos">
+            <article class="producto fade-in" data-id="jugo-natural">
+                <img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=300&q=80" alt="Jugo natural">
+                <div class="info">
+                    <h3>Jugo Natural</h3>
+                    <p>Preparado al momento con fruta fresca — elige tu sabor</p>
+                    <span class="precio">$2.500 CLP</span>
+                    <div class="ver-mas-hint">👆 Toca para ver más</div>
+                </div>
+            </article>
+        </div>
+        <div class="lista-card fade-in">
+            <h4>🥝 Sabores</h4>
+            <div class="chips">
+                <span class="chip">Frutilla</span>
+                <span class="chip">Arándano</span>
+                <span class="chip">Mora</span>
+                <span class="chip">Piña</span>
+                <span class="chip">Melón</span>
+                <span class="chip">Frambuesa</span>
+                <span class="chip">Mango</span>
+                <span class="chip">Naranja</span>
+                <span class="chip">Naranja Plátano</span>
+                <span class="chip">Plátano</span>
+            </div>
+        </div>
+
+        <h2 class="seccion-titulo fade-in" id="limonadas">🍋 Limonadas</h2>
+        <div class="productos">
+            <article class="producto fade-in" data-id="limonada">
+                <img src="https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=300&q=80" alt="Limonada">
+                <div class="info">
+                    <span class="tag tag-chef">👨‍🍳 Recomendado</span>
+                    <h3>Limonada</h3>
+                    <p>Fresca y con hielo — tradicional, menta jengibre o frambuesa</p>
+                    <span class="precio">$2.500 CLP</span>
+                    <div class="ver-mas-hint">👆 Toca para ver más</div>
+                </div>
+            </article>
+        </div>
+        <div class="lista-card fade-in">
+            <h4>🍯 Sabores y extras</h4>
+            <div class="chips">
+                <span class="chip">Tradicional</span>
+                <span class="chip">Menta Jengibre</span>
+                <span class="chip">Frambuesa</span>
+            </div>
+            <ul class="lista-precios" style="margin-top:8px;">
+                <li><span>Leche con plátano</span><b>$4.000</b></li>
+            </ul>
+        </div>
+
+        <h2 class="seccion-titulo fade-in" id="cafes">☕ Cafés</h2>
+        <div class="productos">
+            <article class="producto fade-in" data-id="capuchino">
+                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=300&q=80" alt="Capuchino">
+                <div class="info">
+                    <span class="tag tag-chef">👨‍🍳 Recomendado</span>
+                    <h3>Capuchino</h3>
+                    <p>Espresso con leche vaporizada y espuma sedosa</p>
+                    <span class="precio">$2.000 CLP</span>
+                    <div class="ver-mas-hint">👆 Toca para ver más</div>
+                </div>
+            </article>
+
+            <article class="producto fade-in" data-id="chocolate">
+                <img src="https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=300&q=80" alt="Chocolate caliente">
+                <div class="info">
+                    <span class="tag tag-new">✨ +$500 con marshmallow</span>
+                    <h3>Chocolate Caliente</h3>
+                    <p>Cremoso y servido bien caliente — dale el toque marshmallow</p>
+                    <span class="precio">$2.000 CLP</span>
+                    <div class="ver-mas-hint">👆 Toca para ver más</div>
+                </div>
+            </article>
+
+            <article class="producto fade-in" data-id="cafe-helado">
+                <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=300&q=80" alt="Café helado">
+                <div class="info">
+                    <h3>Café Helado</h3>
+                    <p>Frío y energizante — perfecto para la tarde</p>
+                    <span class="precio">$4.000 CLP</span>
+                    <div class="ver-mas-hint">👆 Toca para ver más</div>
+                </div>
+            </article>
+        </div>
+        <div class="lista-card fade-in">
+            <h4>📋 Toda la cafetería</h4>
+            <ul class="lista-precios">
+                <li><span>Capuchino</span><b>$2.000</b></li>
+                <li><span>Mocachino</span><b>$2.000</b></li>
+                <li><span>Americano</span><b>$2.000</b></li>
+                <li><span>Chocolate Caliente</span><b>$2.000</b></li>
+                <li><span>Chocolate con Marshmallow</span><b>$2.500</b></li>
+                <li><span>Café Tradicional <em>(cálido o helado)</em></span><b>$1.000</b></li>
+                <li><span>Café Helado</span><b>$4.000</b></li>
+            </ul>
+        </div>
+
+        <h2 class="seccion-titulo fade-in" id="bebidas">🥫 Bebidas</h2>
+        <div class="productos">
+            <article class="producto fade-in" data-id="bebida-lata">
+                <img src="https://images.unsplash.com/photo-1554866585-cd94860890b7?w=300&q=80" alt="Bebida lata">
+                <div class="info">
+                    <h3>Bebida Lata</h3>
+                    <p>Siempre fría — elige tu sabor</p>
+                    <span class="precio">$1.500 CLP</span>
+                    <div class="ver-mas-hint">👆 Toca para ver más</div>
+                </div>
+            </article>
+        </div>
+        <div class="lista-card fade-in">
+            <h4>🥤 Bebidas frías</h4>
+            <ul class="lista-precios">
+                <li><span>Bebida lata</span><b>$1.500</b></li>
+                <li><span>Bebida botella</span><b>$2.000</b></li>
+                <li><span>Gatorade</span><b>$2.000</b></li>
+                <li><span>Energéticas</span><b>$2.500</b></li>
+                <li><span>Agua mineral</span><b>$1.500</b></li>
+            </ul>
+        </div>
+
+        <h2 class="seccion-titulo fade-in" id="pizzas">🍕 Pizzas</h2>
+        <div class="productos">
+            <article class="producto fade-in" data-id="pizza">
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&q=80" alt="Pizza">
+                <div class="info">
+                    <span class="tag tag-chef">👨‍🍳 Incluye bebida de 1L</span>
+                    <h3>Pizza a elección</h3>
+                    <p>Elige tus agregados — incluye bebida de 1 litro</p>
+                    <span class="precio">$8.990 CLP</span>
+                    <div class="ver-mas-hint">👆 Toca para ver más</div>
+                </div>
+            </article>
+        </div>
+        <div class="lista-card fade-in">
+            <h4>🧀 Elige tus agregados</h4>
+            <div class="chips">
+                <span class="chip">Camarón</span>
+                <span class="chip">Carne</span>
+                <span class="chip">Pollo</span>
+                <span class="chip">Choclo</span>
+                <span class="chip">Champiñón</span>
+                <span class="chip">Jaiba</span>
+            </div>
+            <p class="lista-nota">🥤 Incluye bebida de 1 litro a elección</p>
+        </div>
+
+    </main>
+
+    <a href="https://wa.me/56936199481?text=Hola,%20quiero%20hacer%20un%20pedido%20en%20Sabores%20del%20Sur" class="whatsapp-fijo" target="_blank">
+        💬 Pedir por WhatsApp
+    </a>
+
+    <footer>
+        <h4>Sabores del Sur</h4>
+        <p>📍 Ricardo Rodas #150, Las Ánimas, Valdivia</p>
+        <p>🛵 Delivery desde las 19:00 hrs</p>
+        <p>💳 Efectivo o transferencia</p>
+        <p>💬 Pedidos por WhatsApp: +56 9 3619 9481</p>
+        <div class="redes">
+            <a href="https://www.instagram.com/saboresdelsur_valdivia/" target="_blank">📸 Instagram</a>
+            <a href="https://wa.me/56936199481" target="_blank">💬 WhatsApp</a>
+        </div>
+        <p style="margin-top:20px; font-size:0.8rem; opacity:0.6;">Hecho en Valdivia, Chile 🇨🇱</p>
+    </footer>
+
+    <!-- ===== MODAL DETALLE PRODUCTO ===== -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <div class="modal-img-wrap" id="modal-img-wrap">
+                <button class="modal-cerrar" id="modal-cerrar" aria-label="Cerrar">✕</button>
+                <img id="modal-img" src="" alt="">
+                <button class="gnav izq" id="gnav-izq" aria-label="Foto anterior" hidden>‹</button>
+                <button class="gnav der" id="gnav-der" aria-label="Foto siguiente" hidden>›</button>
+                <div class="gdots" id="gdots"></div>
+            </div>
+            <div class="modal-cuerpo">
+                <div id="modal-tags"></div>
+                <h2 id="modal-titulo"></h2>
+                <span class="modal-precio" id="modal-precio"></span>
+                <p class="modal-desc" id="modal-desc"></p>
+                <div class="modal-extra" id="modal-extra"></div>
+                <a href="#" class="modal-pedir" id="modal-pedir" target="_blank">💬 Pedir este producto por WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== Datos detallados de cada producto =====
+        const productos = {
+            "waffle-clasico": {
+                titulo: "Waffle a elección",
+                precio: "$5.500 CLP",
+                tags: '<span class="tag tag-chef">👨‍🍳 Recomendado</span><span class="tag" style="background:#fee2e2;color:#d9480f;">🔥 #1 en ventas</span>',
+                img: "img/waffle.jpg?v=3",
+                imgs: ["img/waffle.jpg?v=3", "img/waffle-info.jpg?v=3"],
+                desc: "Waffle recién horneado con base a elección: Nutella, manjar o miel. Incluye crema (o va sin crema, como prefieras), salsa a elección —chocolate, manjar, frambuesa o caramelo— y todos los agregados que quieras: frutilla, plátano, brownie, oreo, durazno, mix berries, kiwi o piña.",
+                extra: "<strong>arma el tuyo:</strong> base + agregados + salsa, todo incluido en el precio.<br><strong>alérgenos:</strong> gluten, huevo, leche.<br><strong>promo:</strong> los viernes está a $5.000 — Viernes de Waffles 🧇"
+            },
+            "emp-mechada": {
+                titulo: "Empanada Queso Mechada",
+                precio: "$3.000 CLP",
+                tags: '<span class="tag tag-chef">👨‍🍳 Recomendado</span>',
+                img: "img/empanada-carne-queso.jpg?v=3",
+                desc: "Empanada rellena de queso fundido con carne mechada, dorada al horno. Una de las más pedidas de la casa: el queso con la carne es una combinación difícil de negar.",
+                extra: "<strong>variedades:</strong> también de queso $2.500, pollo, choclo y champiñón $3.000, y jaiba $3.500.<br><strong>alérgenos:</strong> gluten, leche.<br><strong>tip:</strong> pídela con limonada de frambuesa 🍋"
+            },
+            "emp-camaron": {
+                titulo: "Empanada Queso Camarón",
+                precio: "$3.000 CLP",
+                tags: '<span class="tag tag-new">✨ Premium</span>',
+                img: "img/empanada-camaron.jpg?v=3",
+                desc: "Empanada rellena de queso con camarón, con todo el sabor a la costa de Valdivia. El queso fundido con el camarón la hace irresistible.",
+                extra: "<strong>alérgenos:</strong> gluten, leche, mariscos.<br><strong>también:</strong> queso jaiba $3.500.<br><strong>tip:</strong> combínala con una bebida bien fría 🥤"
+            },
+            "emp-choclo": {
+                titulo: "Empanada Queso Choclo",
+                precio: "$3.000 CLP",
+                tags: '<span class="tag tag-new">✨ De la huerta</span>',
+                img: "img/empanada-choclo.jpg?v=3",
+                desc: "Empanada de queso con choclo dulce, la clásica chilota que sabe a hogar. El dulzor del choclo con el queso fundido es pura tradición del sur.",
+                extra: "<strong>alérgenos:</strong> gluten, leche.<br><strong>vegetariana:</strong> sí ✅<br><strong>tip:</strong> ideal para acompañar un café tradicional ☕"
+            },
+            "sopaipilla": {
+                titulo: "Sopaipillas",
+                precio: "Precio por confirmar",
+                tags: '<span class="tag tag-new">✨ Recién hechas</span>',
+                img: "img/sopaipillas.jpg?v=3",
+                desc: "Sopaipillas recién hechas, crujientes por fuera y suaves por dentro. Recién salidas de la freidora para acompañar tu café o tu waffle.",
+                extra: "<strong>precio:</strong> por confirmar.<br><strong>perfecto para:</strong> acompañar un café en la tarde ☕<br><strong>tip:</strong> pídelas con manjar 🍯"
+            },
+            "sushi-dulce": {
+                titulo: "Sushi Dulce",
+                precio: "Precio por confirmar",
+                tags: '<span class="tag tag-new">✨ Postre creativo</span>',
+                img: "img/sushi-dulce.jpg?v=3",
+                desc: "Rollo dulce de postre con fruta fresca y chocolate — creativo y perfecto para compartir. Una forma diferente de cerrar la comida con sabor del sur.",
+                extra: "<strong>precio:</strong> por confirmar.<br><strong>perfecto para:</strong> postre para compartir 🍫<br><strong>tip:</strong> combínalo con un milkshake 🥤"
+            },
+            "handroll-clasico": {
+                titulo: "Handroll Pollo & Palta",
+                precio: "$3.500 CLP",
+                tags: '<span class="tag tag-chef">👨‍🍳 Recomendado</span>',
+                img: "img/handrolls.jpg?v=3",
+                desc: "Handroll recién enrollado con pollo, queso crema y palta cremosa, envuelto en alga nori crujiente y arroz sazonado. Se prepara al momento para que llegue crocante.",
+                extra: "<strong>alérgenos:</strong> gluten, huevo, leche.<br><strong>perfecto para:</strong> almuerzo o cena ligera.<br><strong>tip:</strong> combínalo con una bebida lata bien fría 🥤"
+            },
+            "milkshake": {
+                titulo: "Milkshake",
+                precio: "$4.000 CLP",
+                tags: '<span class="tag tag-new">✨ Nuevo en carta</span>',
+                img: "img/milkshake.jpg?v=3",
+                desc: "Milkshake cremoso de helado batido con el sabor que elijas: frutilla, arándano, mora, piña, melón, frambuesa, mango, naranja, naranja plátano u oreo.",
+                extra: "<strong>alérgenos:</strong> leche, huevo.<br><strong>perfecto para:</strong> el calor de la tarde o de postre.<br><strong>tip:</strong> el de oreo con brownie es peligrosamente bueno 🍫"
+            },
+            "jugo-natural": {
+                titulo: "Jugo Natural",
+                precio: "$2.500 CLP",
+                tags: "",
+                img: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=800&q=85",
+                desc: "Jugo natural preparado al momento con fruta fresca y sin azúcar añadida. Sabores: frutilla, arándano, mora, piña, melón, frambuesa, mango, naranja, naranja plátano o plátano.",
+                extra: "<strong>sin azúcar añadida.</strong><br><strong>perfecto para:</strong> hidratarse o acompañar tu waffle.<br><strong>vegano:</strong> sí ✅"
+            },
+            "limonada": {
+                titulo: "Limonada",
+                precio: "$2.500 CLP",
+                tags: '<span class="tag tag-chef">👨‍🍳 Recomendado</span>',
+                img: "https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=800&q=85",
+                desc: "Limonada fresca servida con hielo, a elección: tradicional, menta jengibre o frambuesa. La compañera perfecta para el delivery de las 19:00.",
+                extra: "<strong>también:</strong> leche con plátano $4.000.<br><strong>perfecto para:</strong> acompañar waffles o empanadas 🛵<br><strong>vegana:</strong> la tradicional sí ✅"
+            },
+            "capuchino": {
+                titulo: "Capuchino",
+                precio: "$2.000 CLP",
+                tags: '<span class="tag tag-chef">👨‍🍳 Recomendado</span>',
+                img: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=85",
+                desc: "Capuchino clásico: espresso con leche vaporizada y espuma sedosa. También tienes mocachino, americano y café tradicional al mismo precio.",
+                extra: "<strong>toda la cafetería:</strong> mocachino $2.000 · americano $2.000 · café tradicional $1.000 (cálido o helado).<br><strong>perfecto para:</strong> acompañar un waffle ☕"
+            },
+            "chocolate": {
+                titulo: "Chocolate Caliente",
+                precio: "$2.000 CLP",
+                tags: '<span class="tag tag-new">✨ +$500 con marshmallow</span>',
+                img: "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=800&q=85",
+                desc: "Chocolate caliente cremoso, servido bien caliente. Si le sumas marshmallow queda en $2.500 — una tentación difícil de negar.",
+                extra: "<strong>con marshmallow:</strong> $2.500.<br><strong>alérgenos:</strong> leche.<br><strong>perfecto para:</strong> los días fríos de Valdivia 🌧️"
+            },
+            "cafe-helado": {
+                titulo: "Café Helado",
+                precio: "$4.000 CLP",
+                tags: "",
+                img: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=800&q=85",
+                desc: "Café helado frío y energizante, perfecto para las tardes de sol en el río. También puedes pedir el café tradicional helado.",
+                extra: "<strong>café tradicional:</strong> $1.000 (cálido o helado).<br><strong>perfecto para:</strong> tardes de calor ☀️.<br><strong>tip:</strong> pídelo con crema extra."
+            },
+            "bebida-lata": {
+                titulo: "Bebida Lata",
+                precio: "$1.500 CLP",
+                tags: "",
+                img: "https://images.unsplash.com/photo-1554866585-cd94860890b7?w=800&q=85",
+                desc: "Bebida lata siempre fría para acompañar tu pedido. También hay botella, gatorade, energéticas y agua mineral.",
+                extra: "<strong>bebidas:</strong> lata $1.500 · botella $2.000 · gatorade $2.000 · energéticas $2.500 · agua mineral $1.500.<br><strong>perfecto para:</strong> acompañar pizza o empanadas 🥤"
+            },
+            "pizza": {
+                titulo: "Pizza a elección",
+                precio: "$8.990 CLP",
+                tags: '<span class="tag tag-chef">👨‍🍳 Incluye bebida de 1L</span>',
+                img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=85",
+                desc: "Pizza con los agregados que quieras: camarón, carne, pollo, choclo, champiñón o jaiba. Incluye bebida de 1 litro a elección — lista para compartir.",
+                extra: "<strong>incluye:</strong> bebida de 1 litro a elección.<br><strong>agregados:</strong> elige uno o varios, pregúntanos por disponibilidad.<br><strong>ideal para:</strong> compartir en familia 🍕"
+            }
+        };
+
+        // ===== PROMOS DE LA SEMANA (edita este bloque cuando tengas las promos reales) =====
+        // Campos por promo: titulo, detalle, emoji, precioOriginal, precioPromo, ahorro
+        // Deja precios vacíos ("") mientras no tengas la promo confirmada
+        const promos = {
+            lunes:    { titulo: "Promo Lunes",     detalle: "PRÓXIMAMENTE — escríbeme y te cuento la promo de hoy 👀", emoji: "🧇", precioOriginal: "", precioPromo: "", ahorro: "" },
+            martes:   { titulo: "Promo Martes",    detalle: "PRÓXIMAMENTE — promo de martes para el carrito 🛵", emoji: "🥟", precioOriginal: "", precioPromo: "", ahorro: "" },
+            miercoles:{ titulo: "Promo Miércoles", detalle: "PRÓXIMAMENTE — mitad de semana con sabor 🍥", emoji: "🍣", precioOriginal: "", precioPromo: "", ahorro: "" },
+            jueves:   { titulo: "Promo Jueves",    detalle: "PRÓXIMAMENTE — promo de jueves lista para ti 🧇", emoji: "🥤", precioOriginal: "", precioPromo: "", ahorro: "" },
+            viernes:  { titulo: "Viernes de Waffles", detalle: "¡Solo por hoy! Waffle a $5.000 c/u — elige tu base (Nutella, manjar o miel) y agrégale lo que quieras 🧇", emoji: "🧇", precioOriginal: "$5.500", precioPromo: "$5.000", ahorro: "$500" },
+            sabado:   { titulo: "Promo Sábado",    detalle: "PRÓXIMAMENTE — sábado de sabores del sur ☀️", emoji: "🥞", precioOriginal: "", precioPromo: "", ahorro: "" },
+            domingo:  { titulo: "Promo Domingo",   detalle: "PRÓXIMAMENTE — domingo en familia 🍪", emoji: "🍪", precioOriginal: "", precioPromo: "", ahorro: "" }
+        };
+
+        const diasCortos = ["DOM","LUN","MAR","MIÉ","JUE","VIE","SÁB"];
+        const clavesDias = ["domingo","lunes","martes","miercoles","jueves","viernes","sabado"];
+        const hoyFecha = new Date();
+        const diaHoyIdx = hoyFecha.getDay();
+        const diaHoy = clavesDias[diaHoyIdx];
+
+        // Tabs de la semana: abreviatura + número de fecha
+        const contTabs = document.getElementById('semana-tabs');
+        const ordenTabs = [1,2,3,4,5,6,0]; // lunes → domingo
+        // Lunes de la semana actual (semana Lun–Dom)
+        const lunesSemana = new Date(hoyFecha);
+        lunesSemana.setDate(hoyFecha.getDate() - ((diaHoyIdx + 6) % 7));
+        let tabDeHoy = null;
+        ordenTabs.forEach(idx => {
+            const fecha = new Date(lunesSemana);
+            fecha.setDate(lunesSemana.getDate() + ((idx + 6) % 7));
+            const tab = document.createElement('button');
+            tab.type = 'button';
+            tab.className = 'dia-tab' + (idx === diaHoyIdx ? ' es-hoy' : '');
+            tab.dataset.dia = clavesDias[idx];
+            tab.innerHTML = '<span class="dia-abrev">' + diasCortos[idx] + '</span>' +
+                            '<span class="dia-num">' + fecha.getDate() + '</span>' +
+                            '<span class="dia-hoy-chip">HOY</span>';
+            tab.addEventListener('click', () => pintarPromo(clavesDias[idx]));
+            contTabs.appendChild(tab);
+            if (idx === diaHoyIdx) tabDeHoy = tab;
+        });
+
+        function pintarPromo(dia) {
+            const p = promos[dia];
+            const esHoy = dia === diaHoy;
+            document.getElementById('promo-titulo').textContent = p.titulo;
+            document.getElementById('promo-desc').textContent = p.detalle;
+            document.getElementById('promo-emoji').textContent = p.emoji || "🎉";
+            document.getElementById('promo-badge-hoy').style.display = esHoy ? 'inline-block' : 'none';
+            document.getElementById('promo-vigencia').textContent = esHoy ? '✅ VÁLIDA HOY' : '📅 VISTA PREVIA';
+            document.getElementById('promo-card').classList.toggle('es-hoy', esHoy);
+            const box = document.getElementById('promo-precios');
+            if (p.precioPromo) {
+                box.innerHTML =
+                    (p.precioOriginal ? '<span class="precio-tachado-promo">' + p.precioOriginal + '</span>' : '') +
+                    '<span class="precio-promo">' + p.precioPromo + '</span>' +
+                    (p.ahorro ? '<span class="badge-ahorro">Ahorras ' + p.ahorro + '</span>' : '');
+            } else {
+                box.innerHTML = '';
+            }
+            document.querySelectorAll('.dia-tab').forEach(t => t.classList.toggle('activo', t.dataset.dia === dia));
+        }
+        pintarPromo(diaHoy);
+
+        // Centrar la barra en el día de hoy
+        if (tabDeHoy) {
+            contTabs.scrollLeft = tabDeHoy.offsetLeft - (contTabs.clientWidth - tabDeHoy.offsetWidth) / 2;
+        }
+
+        const promoHero = document.getElementById('promo-hero');
+        promoHero.style.display = 'inline-block';
+        document.getElementById('promo-hero-text').textContent = promos[diaHoy].titulo;
+        promoHero.addEventListener('click', () => document.getElementById('promos').scrollIntoView({ behavior: 'smooth' }));
+
+        // ===== Abrir modal =====
+        const overlay = document.getElementById('modal-overlay');
+        const modalImg = document.getElementById('modal-img');
+        const modalTitulo = document.getElementById('modal-titulo');
+        const modalPrecio = document.getElementById('modal-precio');
+        const modalDesc = document.getElementById('modal-desc');
+        const modalExtra = document.getElementById('modal-extra');
+        const modalTags = document.getElementById('modal-tags');
+        const modalPedir = document.getElementById('modal-pedir');
+
+        // ===== Galería de fotos del modal =====
+        let galeria = [], gIdx = 0;
+        const imgWrap = document.getElementById('modal-img-wrap');
+        const gnavIzq = document.getElementById('gnav-izq');
+        const gnavDer = document.getElementById('gnav-der');
+        const gdots = document.getElementById('gdots');
+
+        function pintarFoto() {
+            modalImg.classList.add('cambiando');
+            const pre = new Image();
+            pre.onload = () => {
+                modalImg.src = pre.src;
+                modalImg.classList.remove('cambiando');
+                ajustarMarco(pre.naturalWidth, pre.naturalHeight);
+            };
+            pre.onerror = () => modalImg.classList.remove('cambiando');
+            pre.src = galeria[gIdx];
+            // puntos y flechas
+            [...gdots.children].forEach((d, i) => d.classList.toggle('on', i === gIdx));
+            const multi = galeria.length > 1;
+            gnavIzq.hidden = !multi;
+            gnavDer.hidden = !multi;
+        }
+
+        // El marco se ajusta al formato EXACTO de cada foto:
+        // la foto llena todo el ancho sin bandas a los lados,
+        // y las verticales se limitan a 64vh/500px para no pasarse de la pantalla.
+        function ajustarMarco(nw, nh) {
+            if (!nw || !nh) return;
+            let h = imgWrap.clientWidth * (nh / nw);
+            h = Math.min(h, window.innerHeight * 0.64, 500);
+            imgWrap.style.height = Math.round(h) + 'px';
+        }
+
+        // al redimensionar (o girar el celular) se reajusta
+        window.addEventListener('resize', () => {
+            if (overlay.classList.contains('abierto') && modalImg.naturalWidth) {
+                ajustarMarco(modalImg.naturalWidth, modalImg.naturalHeight);
+            }
+        });
+
+        function moverGaleria(delta) {
+            if (galeria.length < 2) return;
+            gIdx = (gIdx + delta + galeria.length) % galeria.length;
+            pintarFoto();
+        }
+
+        gnavIzq.addEventListener('click', () => moverGaleria(-1));
+        gnavDer.addEventListener('click', () => moverGaleria(1));
+
+        // deslizar con el dedo (celular)
+        let toqueX = 0;
+        imgWrap.addEventListener('touchstart', e => { toqueX = e.changedTouches[0].clientX; }, { passive: true });
+        imgWrap.addEventListener('touchend', e => {
+            const dx = e.changedTouches[0].clientX - toqueX;
+            if (Math.abs(dx) > 45) moverGaleria(dx < 0 ? 1 : -1);
+        }, { passive: true });
+
+        function abrirModal(id) {
+            const p = productos[id];
+            if (!p) return;
+            galeria = p.imgs || [p.img];
+            gIdx = 0;
+            // puntos
+            gdots.innerHTML = '';
+            if (galeria.length > 1) {
+                galeria.forEach((_, i) => {
+                    const b = document.createElement('button');
+                    b.className = 'gdot' + (i === 0 ? ' on' : '');
+                    b.setAttribute('aria-label', 'Foto ' + (i + 1));
+                    b.addEventListener('click', () => { gIdx = i; pintarFoto(); });
+                    gdots.appendChild(b);
+                });
+            }
+            pintarFoto();
+            modalImg.alt = p.titulo;
+            modalTitulo.textContent = p.titulo;
+            modalPrecio.textContent = p.precio;
+            modalDesc.textContent = p.desc;
+            modalExtra.innerHTML = p.extra;
+            modalTags.innerHTML = p.tags;
+            modalPedir.href = "https://wa.me/56936199481?text=" + encodeURIComponent("Hola! Quiero pedir: " + p.titulo + " (" + p.precio + ") de Sabores del Sur 🍥");
+            overlay.classList.add('abierto');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function cerrarModal() {
+            overlay.classList.remove('abierto');
+            document.body.style.overflow = '';
+        }
+
+        document.querySelectorAll('[data-id]').forEach(el => {
+            el.addEventListener('click', () => abrirModal(el.dataset.id));
+        });
+
+        document.getElementById('modal-cerrar').addEventListener('click', cerrarModal);
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) cerrarModal(); });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') cerrarModal();
+            if (!overlay.classList.contains('abierto')) return;
+            if (e.key === 'ArrowLeft') moverGaleria(-1);
+            if (e.key === 'ArrowRight') moverGaleria(1);
+        });
+
+        // ===== Nav de categorías: flechas y fundidos laterales =====
+        const navCats = document.getElementById('nav-categorias');
+        const navArrowIzq = document.getElementById('nav-arrow-izq');
+        const navArrowDer = document.getElementById('nav-arrow-der');
+        const navFadeIzq = document.getElementById('nav-fade-izq');
+        const navFadeDer = document.getElementById('nav-fade-der');
+
+        function actualizarNavCats() {
+            const max = navCats.scrollWidth - navCats.clientWidth;
+            const hayOverflow = max > 4;
+            const alInicio = navCats.scrollLeft <= 4;
+            const alFinal = navCats.scrollLeft >= max - 4;
+            navArrowIzq.classList.toggle('visible', hayOverflow && !alInicio);
+            navArrowDer.classList.toggle('visible', hayOverflow && !alFinal);
+            navFadeIzq.classList.toggle('visible', hayOverflow && !alInicio);
+            navFadeDer.classList.toggle('visible', hayOverflow && !alFinal);
+        }
+        navArrowIzq.addEventListener('click', () => navCats.scrollBy({ left: -190, behavior: 'smooth' }));
+        navArrowDer.addEventListener('click', () => navCats.scrollBy({ left: 190, behavior: 'smooth' }));
+        navCats.addEventListener('scroll', actualizarNavCats);
+        window.addEventListener('resize', actualizarNavCats);
+        window.addEventListener('load', actualizarNavCats);
+        actualizarNavCats();
+
+        // ===== Animaciones al scroll =====
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>

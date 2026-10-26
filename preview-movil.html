@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preview móvil — Sabores del Sur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: radial-gradient(circle at 50% 0%, #4a2c1a 0%, #241309 70%);
+        color: #fdf8f2;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 26px 16px 40px;
+    }
+    h1 { font-family: 'Fredoka', sans-serif; font-size: 1.3rem; margin-bottom: 4px; }
+    .sub { font-size: 0.88rem; opacity: 0.7; margin-bottom: 18px; }
+    .dispositivos { display: flex; gap: 8px; margin-bottom: 22px; flex-wrap: wrap; justify-content: center; }
+    .dispositivos button {
+        background: #4a2c1a;
+        color: #fdf8f2;
+        border: 2px solid #6b3e26;
+        padding: 8px 16px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        font-size: 0.84rem;
+        transition: all 0.2s;
+    }
+    .dispositivos button:hover { border-color: #e8963a; }
+    .dispositivos button.activo { background: #e8963a; color: #4a2c1a; border-color: #e8963a; }
+    .telefono {
+        padding: 14px;
+        background: #0d0906;
+        border-radius: 46px;
+        box-shadow: 0 30px 70px rgba(0,0,0,0.6), inset 0 0 0 2px #3a2a1e;
+        transition: width 0.25s;
+        max-width: 100%;
+    }
+    .pantalla {
+        border-radius: 34px;
+        overflow: hidden;
+        background: #fff;
+        width: 100%;
+    }
+    iframe { display: block; width: 100%; height: 800px; border: 0; }
+    .nota { margin-top: 18px; font-size: 0.82rem; opacity: 0.72; text-align: center; max-width: 440px; line-height: 1.6; }
+</style>
+</head>
+<body>
+    <h1>📱 Vista previa móvil</h1>
+    <p class="sub">Así se ve el menú en un teléfono — toca y desliza dentro de la pantalla</p>
+
+    <div class="dispositivos" id="dispositivos">
+        <button data-w="360" data-h="740">Android 360</button>
+        <button data-w="390" data-h="800" class="activo">iPhone 390</button>
+        <button data-w="414" data-h="860">Plus 414</button>
+    </div>
+
+    <div class="telefono" id="telefono" style="width: 418px;">
+        <div class="pantalla">
+            <iframe id="frame" src="index.html" title="Menú móvil"></iframe>
+        </div>
+    </div>
+
+    <p class="nota">Cambia el tamaño con los botones. Puedes deslizar las categorías, tocar productos y ver el modal igual que en un celular real.</p>
+
+    <script>
+        const frame = document.getElementById('frame');
+        const tel = document.getElementById('telefono');
+        document.querySelectorAll('.dispositivos button').forEach(b => {
+            b.addEventListener('click', () => {
+                document.querySelectorAll('.dispositivos button').forEach(x => x.classList.remove('activo'));
+                b.classList.add('activo');
+                tel.style.width = (parseInt(b.dataset.w) + 28) + 'px';
+                frame.style.height = b.dataset.h + 'px';
+            });
+        });
+    </script>
+</body>
+</html>
